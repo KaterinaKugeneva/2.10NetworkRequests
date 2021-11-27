@@ -41,6 +41,57 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C40AD344275255C50082D164 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C47274F42750E10D006A1891 /* Person.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C40AD34527525B400082D164 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C47274DC2750B216006A1891 /* AppDelegate.swift */,
+				C47274DE2750B216006A1891 /* SceneDelegate.swift */,
+				C47274EA2750B219006A1891 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C40AD34627525B560082D164 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C47274F22750B8E6006A1891 /* MainTableViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C40AD34727525BD10082D164 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C47274E52750B219006A1891 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C40AD34827525C400082D164 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C47274F627511405006A1891 /* PersonCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C40AD34927525D040082D164 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				C47274E22750B216006A1891 /* Main.storyboard */,
+				C47274E72750B219006A1891 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
 		C47274D02750B216006A1891 = {
 			isa = PBXGroup;
 			children = (
@@ -60,15 +111,12 @@
 		C47274DB2750B216006A1891 /* 2.10NetworkRequests */ = {
 			isa = PBXGroup;
 			children = (
-				C47274F627511405006A1891 /* PersonCell.swift */,
-				C47274DC2750B216006A1891 /* AppDelegate.swift */,
-				C47274DE2750B216006A1891 /* SceneDelegate.swift */,
-				C47274F22750B8E6006A1891 /* MainTableViewController.swift */,
-				C47274F42750E10D006A1891 /* Person.swift */,
-				C47274E22750B216006A1891 /* Main.storyboard */,
-				C47274E52750B219006A1891 /* Assets.xcassets */,
-				C47274E72750B219006A1891 /* LaunchScreen.storyboard */,
-				C47274EA2750B219006A1891 /* Info.plist */,
+				C40AD34927525D040082D164 /* Storyboard */,
+				C40AD34827525C400082D164 /* View */,
+				C40AD34727525BD10082D164 /* Resources */,
+				C40AD34627525B560082D164 /* Controllers */,
+				C40AD34527525B400082D164 /* Supporting Files */,
+				C40AD344275255C50082D164 /* Model */,
 			);
 			path = 2.10NetworkRequests;
 			sourceTree = "<group>";
@@ -299,7 +347,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GXBD5L3X93;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = 2.10NetworkRequests/Info.plist;
+				INFOPLIST_FILE = "2.10NetworkRequests/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -327,7 +375,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GXBD5L3X93;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = 2.10NetworkRequests/Info.plist;
+				INFOPLIST_FILE = "2.10NetworkRequests/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
