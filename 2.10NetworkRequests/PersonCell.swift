@@ -18,8 +18,8 @@ class PersonCell: UITableViewCell {
     
     func configure(with person: Person) {
         nameLabel.text = person.name
-        cpeciesLabel.text = person.species
-        locationLabel.text = person.location.name
+        cpeciesLabel.text = "Species: " + person.species
+        locationLabel.text = "Location: " + person.location.name
         
         
         DispatchQueue.global().async {

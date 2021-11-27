@@ -16,18 +16,28 @@ struct Person: Decodable {
         self.image = image
         self.location = location
     }
-    
-    
 }
 
 
 struct Location: Decodable {
     let name: String
     let url: String
+}
+
+struct WebInformation: Decodable {
+    let info: Info
+    let results: [Person]
+    init (_ info: Info, results:[Person] ){
+        self.info = info
+        self.results = results   
+    }
+}
+
+struct Info: Decodable {
+    let next: String
     
-    init (_ name: String, _ url: String){
-        self.name   = name
-        self.url = url
+    init (_ next: String) {
+        self.next   = next
     }
     
 }

@@ -10,13 +10,17 @@ import UIKit
 class MainTableViewController: UITableViewController {
     
     private var persons: [Person] = []
-    //private var info = WebsiteDescription([],Information("",""))
-    
+    private var info = WebInformation (Info.init(""), results: [])
+    private var currentPage = 1
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 100
         fetchCourses()
         
+    }
+    @IBAction func buttonPressed(_ sender: UIBarButtonItem) {
+        if currentPage < 800 { currentPage += 1 } else { currentPage = 1 }
+        fetchCourses()
     }
     
     // MARK: - Table view data source
@@ -26,7 +30,6 @@ class MainTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         persons.count    }
 
     
@@ -35,22 +38,7 @@ class MainTableViewController: UITableViewController {
         let person = persons[indexPath.row]
         
         cell.configure(with: person)
-        /*var content = cell.defaultContentConfiguration()
        
-        
-        DispatchQueue.global().async {
-            guard let url = URL(string: self.persons.image) else { return }
-            guard let imageData = try? Data(contentsOf: url) else { return }
-            
-            DispatchQueue.main.async {
-               content.image = UIImage(data: imageData)
-            }
-        }
-        content.text =  persons.name
-        content.secondaryText = persons.species
-        //content.image = UIImage(named: "111")
-        cell.contentConfiguration = content
-         */
         return cell
     }
   
@@ -103,17 +91,18 @@ class MainTableViewController: UITableViewController {
 }
 extension MainTableViewController {
     func fetchCourses() {
-        let urlString = "https://rickandmortyapi.com/api/character/1,183,15,86,111,2,5,33"
+        let urlString = "https://rickandmortyapi.com/api/character/?page=" + String(currentPage)
         guard let url = URL(string: urlString) else { return }
         
-        URLSession.shared.dataTask(with: url) { data, _, error in
+        URLSession.shared.dataTask(with: url) { [self] data, _, error in
             guard let data = data else {
                 print(error?.localizedDescription ?? "No error description")
                 return
             }
             do {
-                self.persons = try JSONDecoder().decode([Person].self, from: data)
-                print (self.persons)
+                self.info = try JSONDecoder().decode(WebInformation.self, from: data)
+                self.persons = self.info.results
+               // print (self.persons)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
