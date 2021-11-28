@@ -34,10 +34,12 @@ struct WebInformation: Decodable {
 }
 
 struct Info: Decodable {
-    let next: String
+    let next: String?
+    let prev: String?
     
-    init (_ next: String) {
+    init (_ next: String, _ prev: String ) {
         self.next   = next
+        self.prev   = prev
     }
     
 }

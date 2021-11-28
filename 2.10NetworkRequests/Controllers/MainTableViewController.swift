@@ -10,7 +10,7 @@ import UIKit
 class MainTableViewController: UITableViewController {
     
     private var persons: [Person] = []
-    private var info = WebInformation (Info.init(""), results: [])
+    private var info = WebInformation (Info.init("",""), results: [])
     private var currentPage = "https://rickandmortyapi.com/api/character/?page=1"
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +19,11 @@ class MainTableViewController: UITableViewController {
         
     }
     @IBAction func buttonPressed(_ sender: UIBarButtonItem) {
-        currentPage = info.info.next
+        currentPage = info.info.next ?? "https://rickandmortyapi.com/api/character/?page=42"
+        fetchCourses()
+    }
+    @IBAction func buttunBackpressed(_ sender: UIBarButtonItem) {
+        currentPage = info.info.prev ?? "https://rickandmortyapi.com/api/character/?page=1"
         fetchCourses()
     }
     
