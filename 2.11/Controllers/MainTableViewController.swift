@@ -6,26 +6,29 @@
 //
 
 import UIKit
+import Alamofire
 
 class MainTableViewController: UITableViewController {
     
     private var persons: [Person] = []
-    private var info = WebInformation (Info.init("",""), results: [])
+    private var info : WebInformation?
     private var currentPage = "https://rickandmortyapi.com/api/character/?page=1"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 100
-        fetchCourses()
+        print (currentPage)
+        fetchData(url: currentPage)
         
-    }
+        }
+
     @IBAction func buttonPressed(_ sender: UIBarButtonItem) {
-        currentPage = info.info.next ?? "https://rickandmortyapi.com/api/character/?page=42"
-        fetchCourses()
+        currentPage = info?.info.next ?? "https://rickandmortyapi.com/api/character/?page=42"
+        fetchData(url: currentPage)
     }
     @IBAction func buttunBackpressed(_ sender: UIBarButtonItem) {
-        currentPage = info.info.prev ?? "https://rickandmortyapi.com/api/character/?page=1"
-        fetchCourses()
+        currentPage = info?.info.prev ?? "https://rickandmortyapi.com/api/character/?page=1"
+        fetchData(url: currentPage)
     }
     
     // MARK: - Table view data source
@@ -46,30 +49,11 @@ class MainTableViewController: UITableViewController {
         
         return cell
     }
-    
-    
-}
-extension MainTableViewController {
-    func fetchCourses() {
-        let urlString = currentPage
-        guard let url = URL(string: urlString) else { return }
-        
-        URLSession.shared.dataTask(with: url) { [self] data, _, error in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No error description")
-                return
-            }
-            do {
-                self.info = try JSONDecoder().decode(WebInformation.self, from: data)
-                self.persons = self.info.results
-                // print (self.persons)
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            } catch let error {
-                print(error)//.localizedDescription)
-            }
-            
-        }.resume()
+    private func fetchData(url: String?) {
+        NetworkManager.shared.fetchData(from: url) { info in
+            self.info = info
+            self.persons = self.info!.results
+            self.tableView.reloadData()
+        }
     }
 }
