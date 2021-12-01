@@ -19,19 +19,19 @@ class MainTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.rowHeight = 100
         print (currentPage)
-        fetchData(url: currentPage)
-        //manualJSON(url: currentPage)
-    
+        //fetchData(url: currentPage)
+        manualJSON(url: currentPage)
         
-        }
-
+        
+    }
+    
     @IBAction func buttonPressed(_ sender: UIBarButtonItem) {
         currentPage = info?.info.next ?? "https://rickandmortyapi.com/api/character/?page=42"
-        fetchData(url: currentPage)
+        manualJSON(url: currentPage)
     }
     @IBAction func buttunBackpressed(_ sender: UIBarButtonItem) {
         currentPage = info?.info.prev ?? "https://rickandmortyapi.com/api/character/?page=1"
-        fetchData(url: currentPage)
+        manualJSON(url: currentPage)
     }
     
     // MARK: - Table view data source
@@ -41,15 +41,14 @@ class MainTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        persons.count    }
+        persons2.count    }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PersonCell
-        let person = persons[indexPath.row]
+        let person = persons2[indexPath.row]
         
         cell.configure(with: person)
-        
         return cell
     }
     private func fetchData(url: String?) {
@@ -60,23 +59,34 @@ class MainTableViewController: UITableViewController {
         }
     }
     
-   /*private func manualJSON (url: String)
-    {
-        AF.request(url).validate().responseJSON { dataResponse in
-            
-            switch dataResponse.result {
-            case .success(let value):
-              //  print (value)
-                guard let charactersData = value as? [String:Any] else { return }
-                print ("VALUES:     \(charactersData)")
-                for (info, results) in charactersData
-                
-                
-                
-                
-            case .failure(let error):
-                print (error)
+    private func manualJSON (url: String) {
+        self.persons2.removeAll()
+            AF.request(url)
+               .validate()
+               .responseJSON { dataResponse in
+                switch dataResponse.result {
+                case .success(let value):
+                    guard let receivedData = value as? [String: Any] else { return }
+                    
+                    guard let infoData = receivedData["info"] as? [String: Any] else { return }
+                    let info = Info(infoData: infoData)
+                    
+                    guard let charactersData = receivedData["results"] as? [[String: Any]] else { return }
+                    for characterData in charactersData {
+                        print(characterData)
+                        guard let location = characterData["location"] as? [String: Any] else { return }
+                        let personLocation = Location(location: location)
+                        let person = Person(characterData: characterData, personLocation: personLocation)
+                        self.persons2.append(person)
+                    }
+                    let webInformation = WebInformation(info: info, results: self.persons)
+                    self.info = webInformation
+                    
+                    self.tableView.reloadData()
+                    
+                case .failure(let error):
+                    print (error)
+                }
             }
         }
-    }*/
 }

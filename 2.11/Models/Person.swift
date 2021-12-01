@@ -6,16 +6,29 @@
 //
 
 struct Person: Decodable {
-    let name: String
+    let name: String?
     let image: String?
-    let species: String
+    let species: String?
     let location: Location
+    
+    init(characterData: [String: Any], personLocation: Location ) {
+        name = characterData["name"] as? String
+        image = characterData["image"] as? String
+        species = characterData["species"] as? String
+        location = personLocation
+    }
 }
 
 
 struct Location: Decodable {
-    let name: String
-    let url: String
+    let name: String?
+    let url: String?
+    
+    init(location: [String: Any]) {
+        name = location["name"] as? String
+        url = location["url"] as? String
+        
+    }
 }
 
 struct WebInformation: Decodable {
@@ -26,5 +39,10 @@ struct WebInformation: Decodable {
 struct Info: Decodable {
     let next: String?
     let prev: String?
+    
+    init(infoData: [String: Any]) {
+        next = infoData["next"] as? String
+        prev = infoData["prev"] as? String
+    }
     
 }
