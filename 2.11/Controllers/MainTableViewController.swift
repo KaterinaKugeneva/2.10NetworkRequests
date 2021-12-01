@@ -11,7 +11,6 @@ import Alamofire
 class MainTableViewController: UITableViewController {
     
     private var persons: [Person] = []
-    private var persons2: [Person] = []
     private var info : WebInformation?
     private var currentPage = "https://rickandmortyapi.com/api/character/?page=1"
     
@@ -41,12 +40,12 @@ class MainTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        persons2.count    }
+        persons.count    }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PersonCell
-        let person = persons2[indexPath.row]
+        let person = persons[indexPath.row]
         
         cell.configure(with: person)
         return cell
@@ -60,7 +59,7 @@ class MainTableViewController: UITableViewController {
     }
     
     private func manualJSON (url: String) {
-        self.persons2.removeAll()
+        self.persons.removeAll()
             AF.request(url)
                .validate()
                .responseJSON { dataResponse in
@@ -77,7 +76,7 @@ class MainTableViewController: UITableViewController {
                         guard let location = characterData["location"] as? [String: Any] else { return }
                         let personLocation = Location(location: location)
                         let person = Person(characterData: characterData, personLocation: personLocation)
-                        self.persons2.append(person)
+                        self.persons.append(person)
                     }
                     let webInformation = WebInformation(info: info, results: self.persons)
                     self.info = webInformation
