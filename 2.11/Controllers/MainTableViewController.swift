@@ -11,6 +11,7 @@ import Alamofire
 class MainTableViewController: UITableViewController {
     
     private var persons: [Person] = []
+    private var persons2: [Person] = []
     private var info : WebInformation?
     private var currentPage = "https://rickandmortyapi.com/api/character/?page=1"
     
@@ -19,6 +20,8 @@ class MainTableViewController: UITableViewController {
         tableView.rowHeight = 100
         print (currentPage)
         fetchData(url: currentPage)
+        //manualJSON(url: currentPage)
+    
         
         }
 
@@ -56,4 +59,24 @@ class MainTableViewController: UITableViewController {
             self.tableView.reloadData()
         }
     }
+    
+   /*private func manualJSON (url: String)
+    {
+        AF.request(url).validate().responseJSON { dataResponse in
+            
+            switch dataResponse.result {
+            case .success(let value):
+              //  print (value)
+                guard let charactersData = value as? [String:Any] else { return }
+                print ("VALUES:     \(charactersData)")
+                for (info, results) in charactersData
+                
+                
+                
+                
+            case .failure(let error):
+                print (error)
+            }
+        }
+    }*/
 }

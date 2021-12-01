@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 class NetworkManager {
     
     static let shared = NetworkManager()
@@ -24,7 +25,7 @@ class NetworkManager {
             
             do {
                 let info = try JSONDecoder().decode(WebInformation.self, from: data)
-                print (info)
+               // print (info)
                 DispatchQueue.main.async {
                     completion(info)
                 }
@@ -34,6 +35,12 @@ class NetworkManager {
             
         }.resume()
     }
+    
+
+    
+    
+    
+    
 }
 
 
